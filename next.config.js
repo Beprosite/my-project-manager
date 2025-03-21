@@ -1,7 +1,7 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'export',  // Changed from 'standalone' to 'export'
-  basePath: '',
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  output: 'standalone',
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -15,8 +15,6 @@ const nextConfig = {
       }
     ],
   },
-  // Add this to handle trailing slashes
-  trailingSlash: true,
-}
+};
 
-module.exports = nextConfig
+export default nextConfig;
