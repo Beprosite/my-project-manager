@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  username      String    @unique
+  password      String
+  companyName   String
+  logoUrl       String?
+  isAdmin       Boolean   @default(false)
+  projects      Project[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Project {
+  id                 String   @id @default(cuid())
+  name               String
+  status            String   @default("בתהליך")  // הוספנו ערך ברירת מחדל
+  thumbnailUrl       String?
+  googleDriveFolderId String
+  cost               Float
+  paymentStatus      String   @default("UNPAID")
+  lastUpdate         DateTime @default(now())
+  userId             String
+  user               User     @relation(fields: [userId], references: [id])
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
